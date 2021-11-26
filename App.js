@@ -36,7 +36,7 @@ const App = () => {
             <TextInput
               mode="outlined"
               label="Email"
-              placeholder="email@domain.com"
+              placeholder="email@yourdomain.com"
               keyboardType="email-address"
               left={<TextInput.Icon name={eIcon} />}
               outlineColor="#778899"

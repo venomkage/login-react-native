@@ -52,7 +52,7 @@ const App = () => {
             <TextInput
               mode="outlined"
               label="Password"
-              placeholder="password"
+              placeholder="Password"
               secureTextEntry={true}
               left={<TextInput.Icon name={pIcon} />}
               outlineColor="#778899"

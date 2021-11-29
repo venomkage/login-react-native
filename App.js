@@ -1,7 +1,16 @@
 import React from 'react';
 import 'react-native-reanimated';
 import {View as MotiView} from 'moti';
-import {Image, StyleSheet, Text, Dimensions, View} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  Dimensions,
+  View,
+  Keyboard,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {Provider as PaperProvider, TextInput, Button} from 'react-native-paper';
 import FadeCarousel from 'rn-fade-carousel';
 import eIcon from './assets/email.png';
@@ -11,6 +20,7 @@ import svg2 from './assets/2.png';
 import svg3 from './assets/3.png';
 
 const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 const App = () => {
   const slides = [
@@ -20,78 +30,81 @@ const App = () => {
   ];
   return (
     <PaperProvider>
-      <View style={styles.Container}>
-        <FadeCarousel
-          elements={slides}
-          containerStyle={styles.upperContainer}
-          fadeDuration={1500}
-          stillDuration={1500}
-          start={true}
-        />
-        <View style={styles.lowerContainer}>
-          <MotiView
-            from={{translateY: 30, opacity: 0}}
-            animate={{translateY: 0, opacity: 1}}
-            transition={{type: 'spring'}}>
-            <TextInput
-              mode="outlined"
-              label="Email"
-              placeholder="email@yourdomain.com"
-              keyboardType="email-address"
-              left={<TextInput.Icon name={eIcon} />}
-              outlineColor="#778899"
-              activeOutlineColor="#000"
-              style={(styles.TextInput, {alignContent: 'center'})}
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.Container}>
+          <View style={styles.upperContainer}>
+            <FadeCarousel
+              elements={slides}
+              fadeDuration={1500}
+              stillDuration={1500}
+              start={true}
             />
-          </MotiView>
-          <MotiView
-            from={{translateY: 30, opacity: 0}}
-            animate={{translateY: 0, opacity: 1}}
-            transition={{type: 'spring'}}
-            delay={210}>
-            <TextInput
-              mode="outlined"
-              label="Password"
-              placeholder="Password"
-              secureTextEntry={true}
-              left={<TextInput.Icon name={pIcon} />}
-              outlineColor="#778899"
-              activeOutlineColor="#000"
-              style={styles.TextInput}
-            />
-          </MotiView>
-          <MotiView
-            from={{translateY: 30, opacity: 0}}
-            animate={{translateY: 0, opacity: 1}}
-            transition={{type: 'spring'}}
-            delay={300}>
-            <Text style={{marginLeft: 'auto', marginVertical: 3}}>
-              {' '}
-              Forgot Password?{' '}
-            </Text>
-          </MotiView>
-          <MotiView
-            from={{translateY: 30, opacity: 0}}
-            animate={{translateY: 0, opacity: 1}}
-            transition={{type: 'spring'}}
-            delay={390}>
-            <Button color="#fff" style={styles.Button}>
-              Log In
-            </Button>
-          </MotiView>
-          <MotiView
-            from={{translateY: 30, opacity: 0}}
-            animate={{translateY: 0, opacity: 1}}
-            transition={{type: 'spring'}}
-            delay={480}>
-            <Text
-              style={{alignSelf: 'center', fontSize: 15, marginVertical: 9}}>
-              Don't have an account?{' '}
-              <Text style={{color: 'blue'}}>Register</Text>
-            </Text>
-          </MotiView>
+          </View>
+          <View style={styles.lowerContainer}>
+            <MotiView
+              from={{translateY: 30, opacity: 0}}
+              animate={{translateY: 0, opacity: 1}}
+              transition={{type: 'spring'}}>
+              <TextInput
+                mode="outlined"
+                label="Email"
+                placeholder="email@yourdomain.com"
+                keyboardType="email-address"
+                left={<TextInput.Icon name={eIcon} />}
+                outlineColor="#778899"
+                activeOutlineColor="#000"
+                style={(styles.TextInput, {alignContent: 'center'})}
+              />
+            </MotiView>
+            <MotiView
+              from={{translateY: 30, opacity: 0}}
+              animate={{translateY: 0, opacity: 1}}
+              transition={{type: 'spring'}}
+              delay={210}>
+              <TextInput
+                mode="outlined"
+                label="Password"
+                placeholder="Password"
+                secureTextEntry={true}
+                left={<TextInput.Icon name={pIcon} />}
+                outlineColor="#778899"
+                activeOutlineColor="#000"
+                style={styles.TextInput}
+              />
+            </MotiView>
+            <MotiView
+              from={{translateY: 30, opacity: 0}}
+              animate={{translateY: 0, opacity: 1}}
+              transition={{type: 'spring'}}
+              delay={300}>
+              <Text style={{marginLeft: 'auto', marginVertical: 3}}>
+                {' '}
+                Forgot Password?{' '}
+              </Text>
+            </MotiView>
+            <MotiView
+              from={{translateY: 30, opacity: 0}}
+              animate={{translateY: 0, opacity: 1}}
+              transition={{type: 'spring'}}
+              delay={390}>
+              <Button color="#fff" style={styles.Button}>
+                Log In
+              </Button>
+            </MotiView>
+            <MotiView
+              from={{translateY: 30, opacity: 0}}
+              animate={{translateY: 0, opacity: 1}}
+              transition={{type: 'spring'}}
+              delay={480}>
+              <Text
+                style={{alignSelf: 'center', fontSize: 15, marginVertical: 9}}>
+                Don't have an account?{' '}
+                <Text style={{color: 'blue'}}>Register</Text>
+              </Text>
+            </MotiView>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </PaperProvider>
   );
 };
@@ -103,21 +116,23 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   Container: {
-    flex: 1,
-    justifyContent: 'center',
+    height: height,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
   },
   TextInput: {
     marginVertical: 18,
     height: 54,
   },
   upperContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingHorizontal: 16,
+    overflow: 'hidden',
+    height: height / 2.2,
   },
   lowerContainer: {
-    flex: 1,
     paddingHorizontal: 12,
+    flex: 1,
   },
   Button: {
     backgroundColor: '#000',
